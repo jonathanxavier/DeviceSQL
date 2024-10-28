@@ -34,12 +34,7 @@ PRINT [DeviceManager].[RegisterModbusMaster] (@ChannelName, @DeviceName, @UseMba
 	WHILE (@samples < @maxSamples)
 	BEGIN
 		WAITFOR DELAY @delay
-		SET @HoldingRegisterArray = [ModbusMaster].[ReadHoldings](@deviceName, @HoldingRegisterArray);
-		INSERT INTO [ModbusValues].[dbo].[HoldingRegisterValues]
-           ([DateTime]
-           ,[Value])
-	    VALUES
-           (GetDate(), @HoldingRegisterArray.GetShort(0, 0))
+			INSERT INTO [ModbusValues].[dbo].[HoldingRegisterValues]([DateTime],[Value]) VALUES (GetDate(), [ModbusMaster].[ReadHoldings](@deviceName, @HoldingRegisterArray).GetShort(0, 0))
 		SET @samples = @samples + 1
 	END
 PRINT [DeviceManager].[UnregisterDevice] (@deviceName);

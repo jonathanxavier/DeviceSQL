@@ -31,7 +31,7 @@ namespace DeviceSQL.Utilities.DeploymentScriptFormatter
                                      "\r\n" +
                                      $"{installScriptText.Substring(installScriptText.IndexOf("PRINT N'Creating Schema [ChannelManager]...';"))}";
 
-                installScriptText = installScriptText.Substring(0, installScriptText.IndexOf("DECLARE @VarDecimalSupported AS BIT;"));
+                installScriptText = installScriptText.Substring(0, installScriptText.IndexOf("PRINT N'Update complete.';"));
 
                 installScriptText = installScriptText.Replace("[dbo].[ChannelManager_", "[ChannelManager].[").Replace("[dbo].[DeviceManager_", "[DeviceManager].[").Replace("[dbo].[ModbusMaster_", "[ModbusMaster].[").Replace("[dbo].[RocMaster_", "[RocMaster].[");
 

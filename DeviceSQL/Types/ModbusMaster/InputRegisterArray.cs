@@ -90,6 +90,12 @@ namespace DeviceSQL.Types.ModbusMaster
             return (new ModbusMaster_LongRegister() { Address = new ModbusMaster_ModbusAddress() { RelativeAddress = address.RelativeAddress, IsZeroBased = true }, ByteSwap = byteSwap, WordSwap = wordSwap, Data = inputRegisters[Convert.ToByte(registerIndex.Value + 1)].data.Concat(inputRegisters[Convert.ToByte(registerIndex.Value)].data).ToArray() }).Value;
         }
 
+        public SqlInt64 GetULong(SqlByte registerIndex, SqlBoolean byteSwap, SqlBoolean wordSwap)
+        {
+            var address = InputRegisters[registerIndex.Value].Address;
+            return (new ModbusMaster_ULongRegister() { Address = new ModbusMaster_ModbusAddress() { RelativeAddress = address.RelativeAddress, IsZeroBased = true }, ByteSwap = byteSwap, WordSwap = wordSwap, Data = inputRegisters[Convert.ToByte(registerIndex.Value + 1)].data.Concat(inputRegisters[Convert.ToByte(registerIndex.Value)].data).ToArray() }).Value;
+        }
+
         public SqlString GetString(SqlByte registerIndex, SqlByte length)
         {
             var data = new List<byte>();
